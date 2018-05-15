@@ -10,6 +10,9 @@ USER root
 ENV APACHE_SPARK_VERSION 2.0.1
 ENV PYJ_VERSION py4j-0.10.1-src.zip
 RUN apt-get -y update && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository ppa:openjdk-r/ppa && \
+    apt-get -y update && \
     apt-get install -y --no-install-recommends openjdk-7-jre-headless && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -45,9 +48,9 @@ ENV SPARK_OPTS --driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M -
 USER $NB_USER
 
 # Install Python 3 Tensorflow
-RUN conda install --quiet --yes 'tensorflow=0.9.0'
+RUN pip install tensorflow
 # Keras
-RUN conda install --channel https://conda.anaconda.org/KEHANG --quiet --yes 'keras=1.0.8'
+RUN pip install keras
 # Use the latest version of hyperopts (python 3.5 compatibility)
 RUN pip install https://github.com/hyperopt/hyperopt/archive/master.zip
 # Elephas for distributed spark
