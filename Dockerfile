@@ -47,6 +47,8 @@ ENV SPARK_OPTS --driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M -
 
 USER $NB_USER
 
+RUN pip install --upgrade pip
+
 # Install Python 3 Tensorflow
 RUN pip install tensorflow
 # Keras
